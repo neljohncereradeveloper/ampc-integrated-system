@@ -25,3 +25,10 @@ export const ROUTES = {
   DASHBOARD: "/dashboard",
   HRIS: "/hris",
 } as const;
+
+export const PAGE_URL = {
+  hris: {
+    attendance: "/hris/attendance",
+    payroll: "/hris/payroll",
+  },
+};

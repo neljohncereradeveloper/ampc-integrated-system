@@ -13,6 +13,7 @@ import {
   SidebarHeader,
   SidebarRail,
 } from "@/components/ui/sidebar";
+import { PAGE_URL } from "@/lib/constants";
 
 // This is sample data.
 const data = {
@@ -25,7 +26,7 @@ const data = {
   systemModules: [
     {
       name: "HRIS",
-      url: "#",
+      url: PAGE_URL.hris.payroll,
       icon: Briefcase,
     },
     {

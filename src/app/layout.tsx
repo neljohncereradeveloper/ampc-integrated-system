@@ -68,6 +68,7 @@ export default function RootLayout({
                   </Breadcrumb>
                 </div>
               </header>
+              <Separator />
               <div className="flex flex-1 flex-col gap-4 p-4 md:p-6">
                 {children}
               </div>
