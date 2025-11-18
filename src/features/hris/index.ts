@@ -22,4 +22,3 @@ export * from "./lib/payroll/payroll-api";
 export * from "./types/shared/hris.types";
 export * from "./types/attendance.types";
 export * from "./types/payroll.types";
-

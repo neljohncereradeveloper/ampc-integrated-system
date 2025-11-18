@@ -17,7 +17,7 @@ export function CHrisMenubar() {
     router.push(module);
   };
   return (
-    <Menubar className="rounded-none">
+    <Menubar>
       <MenubarMenu>
         <MenubarTrigger>Module</MenubarTrigger>
         <MenubarContent>
