@@ -1,6 +1,9 @@
 import { CCombobox } from "@/components/shared/combobox";
-import { CSharedFormInput } from "@/components/shared/form/input";
-import { CSharedFormLabel } from "@/components/shared/form/label";
+import {
+  CSharedFormButtonSubmit,
+  CSharedFormInput,
+  CSharedFormLabel,
+} from "@/components/shared/form";
 import {
   Form,
   FormControl,
@@ -84,10 +87,7 @@ const CForm = () => {
             )}
           />
 
-          {/* <CSharedFormButtonNew
-            isPending={isGeneratingExcelView}
-            className="h-9"
-          /> */}
+          <CSharedFormButtonSubmit isPending={false} className="h-9" />
         </div>
       </form>
     </Form>

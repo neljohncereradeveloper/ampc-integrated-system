@@ -19,13 +19,6 @@ export const UI_LABELS = {
   EDIT: "Edit",
 } as const;
 
-// Route paths
-export const ROUTES = {
-  HOME: "/",
-  DASHBOARD: "/dashboard",
-  HRIS: "/hris",
-} as const;
-
 export const PAGE_URL = {
   hris: {
     attendance: "/hris/attendance",
