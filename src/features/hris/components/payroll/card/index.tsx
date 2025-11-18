@@ -1,4 +1,7 @@
-import { CCustomCard } from "@/components/card";
+"use client";
+
+import { CCustomCard } from "@/components/shared/card";
+import CForm from "./form";
 
 /**
  * Payroll Components
@@ -6,7 +9,11 @@ import { CCustomCard } from "@/components/card";
 export const CCard = () => {
   return (
     <CCustomCard
-      content={<></>}
+      content={
+        <>
+          <CForm />
+        </>
+      }
       title="Payroll"
       description="View and manage employee payroll records"
       action={<></>}

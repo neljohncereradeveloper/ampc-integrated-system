@@ -7,7 +7,7 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "../ui/card";
+} from "../../ui/card";
 
 type CustomCardProps = {
   title: string;
@@ -25,10 +25,12 @@ export const CCustomCard = ({
   footer,
 }: CustomCardProps) => {
   return (
-    <Card className="bg-background rounded-none">
+    <Card className="bg-background rounded-none ">
       <CardHeader>
-        <CardTitle>{title}</CardTitle>
-        <CardDescription>{description}</CardDescription>
+        <CardTitle className="text-lg font-bold">{title}</CardTitle>
+        <CardDescription className="text-sm font-normal text-muted-foreground">
+          {description}
+        </CardDescription>
         <CardAction>{action}</CardAction>
       </CardHeader>
       <CardContent>{content}</CardContent>

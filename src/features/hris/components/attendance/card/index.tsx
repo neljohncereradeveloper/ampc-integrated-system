@@ -1,4 +1,4 @@
-import { CCustomCard } from "@/components/card";
+import { CCustomCard } from "@/components/shared/card";
 
 /**
  * Payroll Components
