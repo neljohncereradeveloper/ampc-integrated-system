@@ -25,7 +25,7 @@ export const CCustomCard = ({
   footer,
 }: CustomCardProps) => {
   return (
-    <Card>
+    <Card className="bg-background rounded-none">
       <CardHeader>
         <CardTitle>{title}</CardTitle>
         <CardDescription>{description}</CardDescription>
