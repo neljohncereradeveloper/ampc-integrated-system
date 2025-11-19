@@ -3,13 +3,14 @@
  * React Query hooks for attendance data fetching
  */
 
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import { useQuery } from '@tanstack/react-query';
 import {
   getAttendance,
   createAttendance,
   updateAttendance,
   deleteAttendance,
 } from '../../lib/attendance/attendance-api';
+import { useAppMutation } from '@/hooks/use-app-mutation';
 import type {
   Attendance,
   AttendanceCreateDto,
@@ -39,14 +40,9 @@ export function useAttendance(id: string, enabled = true) {
  * Hook to create a new attendance record
  */
 export function useCreateAttendance() {
-  const queryClient = useQueryClient();
-
-  return useMutation({
+  return useAppMutation({
     mutationFn: (data: AttendanceCreateDto) => createAttendance(data),
-    onSuccess: () => {
-      // Invalidate attendance list queries
-      queryClient.invalidateQueries({ queryKey: ATTENDANCE_QUERY_KEYS.lists() });
-    },
+    invalidateQueries: ATTENDANCE_QUERY_KEYS.lists(),
   });
 }
 
@@ -54,18 +50,13 @@ export function useCreateAttendance() {
  * Hook to update an attendance record
  */
 export function useUpdateAttendance() {
-  const queryClient = useQueryClient();
-
-  return useMutation({
+  return useAppMutation({
     mutationFn: ({ id, data }: { id: string; data: AttendanceUpdateDto }) =>
       updateAttendance(id, data),
-    onSuccess: (_, variables) => {
-      // Invalidate specific attendance detail and list queries
-      queryClient.invalidateQueries({
-        queryKey: ATTENDANCE_QUERY_KEYS.detail(variables.id),
-      });
-      queryClient.invalidateQueries({ queryKey: ATTENDANCE_QUERY_KEYS.lists() });
-    },
+    invalidateQueries: [
+      ({ variables }) => ATTENDANCE_QUERY_KEYS.detail(variables.id),
+      ATTENDANCE_QUERY_KEYS.lists(),
+    ],
   });
 }
 
@@ -73,17 +64,12 @@ export function useUpdateAttendance() {
  * Hook to delete an attendance record
  */
 export function useDeleteAttendance() {
-  const queryClient = useQueryClient();
-
-  return useMutation({
+  return useAppMutation({
     mutationFn: (id: string) => deleteAttendance(id),
-    onSuccess: (_, id) => {
-      // Invalidate attendance queries
-      queryClient.invalidateQueries({
-        queryKey: ATTENDANCE_QUERY_KEYS.detail(id),
-      });
-      queryClient.invalidateQueries({ queryKey: ATTENDANCE_QUERY_KEYS.lists() });
-    },
+    invalidateQueries: [
+      ({ variables }) => ATTENDANCE_QUERY_KEYS.detail(variables),
+      ATTENDANCE_QUERY_KEYS.lists(),
+    ],
   });
 }
 
