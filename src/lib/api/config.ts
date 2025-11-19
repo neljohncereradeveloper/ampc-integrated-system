@@ -46,7 +46,7 @@ export const apiConfig: FeatureApiConfig = {
   hrisPayroll: {
     baseURL: getApiBaseURL(
       "HRIS_PAYROLL_API_URL",
-      "http://localhost:3001/api/payroll"
+      "http://localhost:3220/api/v1/payroll"
     ),
     timeout: DEFAULT_TIMEOUT,
     headers: {

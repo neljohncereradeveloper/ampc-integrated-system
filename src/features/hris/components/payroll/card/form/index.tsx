@@ -11,13 +11,21 @@ import {
   FormItem,
   FormMessage,
 } from "@/components/ui/form";
+import { Spinner } from "@/components/ui/spinner";
+import { useGeneratePayrollBranchEntries } from "@/features/hris/hooks/payroll/useGeneratePayrollBranchEntries";
+import { PayrollBranchEntriesDto } from "@/features/hris/types/payroll.types";
 import { PAYROLL_PERIOD } from "@/lib/constants";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
+import CExcelView from "./excel-view";
 
 const CForm = () => {
-  //   const { handleSubmit, formGenerateExcelView, isGeneratingExcelView } =
-  //     useExcelViewContext();
+  const {
+    mutate: generateBranchEntries,
+    isPending: isGeneratingBranchEntries,
+    data: generateBranchEntriesData,
+  } = useGeneratePayrollBranchEntries();
+
   const [payPeriodOpen, setPayPeriodOpen] = useState(false);
 
   const formGenerateExcelView = useForm({
@@ -34,63 +42,79 @@ const CForm = () => {
     value: period,
   }));
 
-  const handleSubmit = (data: any) => {
-    console.log(data);
+  const handleSubmit = (data: PayrollBranchEntriesDto) => {
+    generateBranchEntries({
+      payPeriod: data.payPeriod,
+      payrollYear: data.payrollYear,
+    });
   };
 
   return (
-    <Form {...formGenerateExcelView}>
-      <form onSubmit={formGenerateExcelView.handleSubmit(handleSubmit)}>
-        <div className="flex gap-3 items-end">
-          {/* Pay Period Combobox */}
-          <FormField
-            control={formGenerateExcelView.control}
-            name="payPeriod"
-            render={({ field }) => (
-              <FormItem>
-                <FormControl>
-                  <CCombobox
-                    data={payPeriodOptions}
-                    label="Pay Period"
-                    placeholder="Select pay period..."
-                    value={field.value}
-                    open={payPeriodOpen}
-                    onOpenChange={setPayPeriodOpen}
-                    onSelect={(value) => {
-                      field.onChange(value);
-                      setPayPeriodOpen(false);
-                    }}
-                    required={true}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
+    <>
+      <Form {...formGenerateExcelView}>
+        <form onSubmit={formGenerateExcelView.handleSubmit(handleSubmit)}>
+          <div className="flex gap-3 items-end">
+            {/* Pay Period Combobox */}
+            <FormField
+              control={formGenerateExcelView.control}
+              name="payPeriod"
+              render={({ field }) => (
+                <FormItem>
+                  <FormControl>
+                    <CCombobox
+                      data={payPeriodOptions}
+                      label="Pay Period"
+                      placeholder="Select pay period..."
+                      value={field.value}
+                      open={payPeriodOpen}
+                      onOpenChange={setPayPeriodOpen}
+                      onSelect={(value) => {
+                        field.onChange(value);
+                        setPayPeriodOpen(false);
+                      }}
+                      required={true}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
 
-          {/* Payroll Year Input */}
-          <FormField
-            control={formGenerateExcelView.control}
-            name="payrollYear"
-            render={({ field }) => (
-              <FormItem>
-                <CSharedFormLabel text="Payroll Year" />
-                <FormControl>
-                  <CSharedFormInput
-                    field={field}
-                    placeholder="Enter year (e.g., 2024)"
-                    className="h-9"
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
+            {/* Payroll Year Input */}
+            <FormField
+              control={formGenerateExcelView.control}
+              name="payrollYear"
+              render={({ field }) => (
+                <FormItem>
+                  <CSharedFormLabel text="Payroll Year" />
+                  <FormControl>
+                    <CSharedFormInput
+                      field={field}
+                      placeholder="Enter year (e.g., 2024)"
+                      className="h-9"
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
 
-          <CSharedFormButtonSubmit isPending={false} className="h-9" />
-        </div>
-      </form>
-    </Form>
+            <CSharedFormButtonSubmit isPending={false} className="h-9" />
+          </div>
+        </form>
+      </Form>
+
+      <div className="w-full">
+        <p>Generate Branch Entries</p>
+        {isGeneratingBranchEntries ? (
+          <Spinner />
+        ) : (
+          generateBranchEntriesData && (
+            <CExcelView data={generateBranchEntriesData} />
+          )
+        )}
+      </div>
+    </>
   );
 };
 

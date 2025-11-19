@@ -27,16 +27,17 @@ export const createApiClient = (options: ApiClientOptions): AxiosInstance => {
   // Request interceptor
   client.interceptors.request.use(
     (config) => {
+      config.headers.Authorization = `Bearer ${"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjE1LCJ1c2VybmFtZSI6InRlc3QiLCJmbmFtZSI6InRlc3QiLCJtbmFtZSI6InRlc3QiLCJsbmFtZSI6InRlc3QiLCJzdWZmaXgiOiJ0ZXN0Iiwicm9sZUFjY2VzcyI6IlBBWVJPTExfTUFTVEVSLEhSX0FTU09DSUFURSIsImFwcGxpY2F0aW9uQWNjZXNzIjoiTU9EVUxFX1BBWVJPTEwsTU9EVUxFX1NBTEFSWSxNT0RVTEVfMjAxRklMRSxNT0RVTEVfMjAxRklMRV9SRVBPUlQsTU9EVUxFX0dPVl9DT05UUklCVVRJT04sTU9EVUxFX0dPVl9DT05UUklCVVRJT05fUkVQT1JULE1PRFVMRV9MRUFWRSxNT0RVTEVfTEVBVkVfTU9ORVRJWkFUSU9OX1JFUE9SVCIsImJyYW5jaCI6ImhlYWQgb2ZmaWNlIiwiaWF0IjoxNzYzNTI3NTU0LCJleHAiOjE3NjM1NTYzNTR9.IRfN2MVop-QeU_JeLSmmGENNjdHb8YyMtIDG4kN-f2U"}`;
       // Add authentication token if available
       // You can customize this based on your auth implementation
-      const token =
-        typeof window !== "undefined"
-          ? localStorage.getItem("auth_token")
-          : null;
+      // const token =
+      //   typeof window !== "undefined"
+      //     ? localStorage.getItem("auth_token")
+      //     : null;
 
-      if (token && config.headers) {
-        config.headers.Authorization = `Bearer ${token}`;
-      }
+      // if (token && config.headers) {
+      //   config.headers.Authorization = `Bearer ${token}`;
+      // }
 
       return config;
     },

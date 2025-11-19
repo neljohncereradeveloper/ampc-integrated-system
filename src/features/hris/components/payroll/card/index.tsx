@@ -8,17 +8,19 @@ import CForm from "./form";
  */
 export const CCard = () => {
   return (
-    <CCustomCard
-      content={
-        <>
-          <CForm />
-        </>
-      }
-      title="Payroll"
-      description="View and manage employee payroll records"
-      action={<></>}
-      footer={<></>}
-    />
+    <>
+      <CCustomCard
+        content={
+          <>
+            <CForm />
+          </>
+        }
+        title="Payroll"
+        description="View and manage employee payroll records"
+        action={<></>}
+        footer={<></>}
+      />
+    </>
   );
 };
 

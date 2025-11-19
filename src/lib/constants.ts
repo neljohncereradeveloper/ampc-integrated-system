@@ -26,6 +26,15 @@ export const PAGE_URL = {
   },
 };
 
+export const EMPLOYEE_STATUS = {
+  REGULAR: "regular",
+  PROBATIONARY: "probationary",
+  RESIGNED: "resigned",
+  TERMINATED: "terminated",
+  AWOL: "awol",
+  END_OF_CONTRACT: "end of contract",
+};
+
 export const PAYROLL_PERIOD = {
   // January
   JANUARY_15TH: "January 15th",
