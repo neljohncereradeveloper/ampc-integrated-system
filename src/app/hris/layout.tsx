@@ -47,7 +47,7 @@ export default function HrisLayout({
               </Breadcrumb>
             </div>
           </header>
-          {/* <Separator /> */}
+          <Separator />
           <div className="flex w-full flex-col gap-4 p-4 md:p-6">
             <CHrisMenubar />
             {children}
