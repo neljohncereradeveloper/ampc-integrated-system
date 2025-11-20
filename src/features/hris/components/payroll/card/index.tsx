@@ -11,9 +11,9 @@ export const CCard = () => {
     <>
       <CCustomCard
         content={
-          <>
+          <div className="flex flex-col gap-4">
             <CForm />
-          </>
+          </div>
         }
         title="Payroll"
         description="View and manage employee payroll records"

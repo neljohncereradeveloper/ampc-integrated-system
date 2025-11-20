@@ -11,13 +11,14 @@ import {
   FormItem,
   FormMessage,
 } from "@/components/ui/form";
-import { Spinner } from "@/components/ui/spinner";
 import { useGeneratePayrollBranchEntries } from "@/features/hris/hooks/payroll/useGeneratePayrollBranchEntries";
 import { PayrollBranchEntriesDto } from "@/features/hris/types/payroll.types";
 import { PAYROLL_PERIOD } from "@/lib/constants";
-import React, { useState } from "react";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
-import CExcelView from "./excel-view";
+import { CCustomCard } from "@/components/shared/card";
+import CSummaryView from "./summary-view";
+import { Spinner } from "@/components/ui/spinner";
 
 const CForm = () => {
   const {
@@ -104,16 +105,18 @@ const CForm = () => {
         </form>
       </Form>
 
-      <div className="w-full">
-        <p>Generate Branch Entries</p>
+      <>
         {isGeneratingBranchEntries ? (
-          <Spinner />
+          <div className="flex justify-center items-center h-full">
+            <Spinner className="size-4 animate-spin" />
+            <p>Generating branch entries...</p>
+          </div>
         ) : (
-          generateBranchEntriesData && (
-            <CExcelView data={generateBranchEntriesData} />
-          )
+          <div className="w-full">
+            <CSummaryView data={generateBranchEntriesData || { data: [] }} />
+          </div>
         )}
-      </div>
+      </>
     </>
   );
 };
