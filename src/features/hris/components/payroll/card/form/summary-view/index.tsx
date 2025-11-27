@@ -2,23 +2,21 @@
 
 import React, { useMemo, useState } from "react";
 import { PayrollBranchEntries } from "@/features/hris/types/payroll.types";
-import { calculateSummaryStats } from "./utils";
 import { PayrollSummaryHeader } from "./PayrollSummaryHeader";
 import { SummaryStatsCards } from "./SummaryStatsCards";
 import { EmployeesByBranch } from "./EmployeesByBranch";
 import { EmployeeSearchForm } from "./EmployeeSearchForm";
 
-interface CSummaryViewProps {
-  data: PayrollBranchEntries;
-}
-
-const CSummaryView: React.FC<CSummaryViewProps> = ({ data }) => {
+const CSummaryView: React.FC<PayrollBranchEntries> = ({
+  data,
+  accountEntries,
+}) => {
   const [searchQuery, setSearchQuery] = useState("");
 
   const allData = useMemo(() => {
-    if (!data.data) return [];
-    return data.data;
-  }, [data.data]);
+    if (!data) return [];
+    return data;
+  }, [data]);
 
   // Filter employees by search query
   const filteredData = useMemo(() => {
@@ -33,9 +31,9 @@ const CSummaryView: React.FC<CSummaryViewProps> = ({ data }) => {
   }, [allData, searchQuery]);
 
   // Calculate summary statistics based on filtered data
-  const summaryStats = useMemo(() => {
-    return calculateSummaryStats(filteredData);
-  }, [filteredData]);
+  // const summaryStats = useMemo(() => {
+  //   return calculateSummaryStats(filteredData);
+  // }, [filteredData]);
 
   // Group employees by branch
   const employeesByBranch = useMemo(() => {
@@ -66,10 +64,10 @@ const CSummaryView: React.FC<CSummaryViewProps> = ({ data }) => {
       <PayrollSummaryHeader
         payPeriod={payPeriod}
         payrollYear={payrollYear}
-        totalEmployees={summaryStats.totalEmployees}
+        totalEmployees={0}
       />
 
-      <SummaryStatsCards stats={summaryStats} />
+      <SummaryStatsCards accountEntries={accountEntries!} />
 
       <div className="space-y-4">
         <EmployeeSearchForm
@@ -79,7 +77,7 @@ const CSummaryView: React.FC<CSummaryViewProps> = ({ data }) => {
 
         {filteredData.length === 0 ? (
           <div className="flex items-center justify-center p-8 text-muted-foreground border rounded-lg">
-            No employees found matching "{searchQuery}"
+            No employees found matching {searchQuery}
           </div>
         ) : (
           <EmployeesByBranch employeesByBranch={employeesByBranch} />

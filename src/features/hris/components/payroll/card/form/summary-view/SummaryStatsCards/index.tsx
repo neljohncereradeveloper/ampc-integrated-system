@@ -1,77 +1,84 @@
 import React from "react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Clock, Calendar, TrendingUp, TrendingDown } from "lucide-react";
-import { formatCurrency, SummaryStats } from "../utils";
+import { CCard } from "./card";
+import {
+  Briefcase,
+  PiggyBank,
+  Umbrella,
+  Plane,
+  Shield,
+  Landmark,
+  LandmarkIcon,
+  Wallet2,
+  Banknote,
+  PiggyBankIcon,
+  ReceiptText,
+  MessageCircle,
+} from "lucide-react";
 
-interface SummaryStatsCardsProps {
-  stats: SummaryStats;
+interface Props {
+  accountEntries: {
+    salariesAndWages: number;
+    internalDeductions: number;
+    employeeBenefits: number;
+    travelAndTransportation: number;
+    philhealth: number;
+    hdmf: number;
+    hdmfLoan: number;
+    hdmfMp2: number;
+    sss: number;
+    sssLoan: number;
+    sssWisp: number;
+    wTax: number;
+  };
 }
 
-export const SummaryStatsCards: React.FC<SummaryStatsCardsProps> = ({
-  stats,
-}) => {
+const cardConfig = [
+  { key: "salariesAndWages", label: "Salaries & Wages", Icon: Briefcase },
+  { key: "internalDeductions", label: "Other Deductions", Icon: ReceiptText },
+  { key: "employeeBenefits", label: "Employee Benefits", Icon: Umbrella },
+  {
+    key: "travelAndTransportation",
+    label: "Travel & Transportation",
+    Icon: Plane,
+  },
+  { key: "philhealth", label: "Philhealth", Icon: Shield },
+  { key: "hdmf", label: "HDMF", Icon: Landmark },
+  { key: "hdmfLoan", label: "HDMF Loan", Icon: LandmarkIcon },
+  { key: "hdmfMp2", label: "HDMF MP2", Icon: PiggyBank },
+  { key: "communication", label: "Communication", Icon: MessageCircle },
+  { key: "sss", label: "SSS", Icon: Wallet2 },
+  { key: "sssLoan", label: "SSS Loan", Icon: PiggyBankIcon },
+  { key: "sssWisp", label: "SSS WISP", Icon: Banknote },
+  { key: "wTax", label: "Withholding Tax", Icon: ReceiptText },
+] as const;
+
+export const SummaryStatsCards: React.FC<Props> = ({ accountEntries }) => {
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
-      <Card>
-        <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-          <CardTitle className="text-sm font-medium">Overtime Pay</CardTitle>
-          <Clock className="h-4 w-4 text-muted-foreground" />
-        </CardHeader>
-        <CardContent>
-          <div className="text-2xl font-bold">
-            {formatCurrency(stats.totalOvertime)}
-          </div>
-        </CardContent>
-      </Card>
+    <div className="rounded-2xl border bg-white/80 p-6 shadow-sm">
+      <div className="mb-4 flex items-center justify-between">
+        <div>
+          <p className="text-xs uppercase tracking-widest text-muted-foreground">
+            Payroll Snapshot
+          </p>
+          <h3 className="text-xl font-semibold text-slate-900">
+            Account Summary
+          </h3>
+        </div>
+        <p className="text-xs text-muted-foreground">
+          All figures shown are in Philippine Peso (PHP)
+        </p>
+      </div>
 
-      <Card>
-        <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-          <CardTitle className="text-sm font-medium">Holiday Pay</CardTitle>
-          <Calendar className="h-4 w-4 text-muted-foreground" />
-        </CardHeader>
-        <CardContent>
-          <div className="text-2xl font-bold">
-            {formatCurrency(stats.totalHoliday)}
-          </div>
-        </CardContent>
-      </Card>
-
-      <Card>
-        <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-          <CardTitle className="text-sm font-medium">Attendance</CardTitle>
-          <TrendingUp className="h-4 w-4 text-muted-foreground" />
-        </CardHeader>
-        <CardContent>
-          <div className="text-2xl font-bold">
-            {formatCurrency(stats.totalAttendance)}
-          </div>
-        </CardContent>
-      </Card>
-
-      <Card>
-        <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-          <CardTitle className="text-sm font-medium">Additions</CardTitle>
-          <TrendingUp className="h-4 w-4 text-green-600" />
-        </CardHeader>
-        <CardContent>
-          <div className="text-2xl font-bold text-green-600">
-            {formatCurrency(stats.totalAdditions)}
-          </div>
-        </CardContent>
-      </Card>
-
-      <Card>
-        <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-          <CardTitle className="text-sm font-medium">Deductions</CardTitle>
-          <TrendingDown className="h-4 w-4 text-red-600" />
-        </CardHeader>
-        <CardContent>
-          <div className="text-2xl font-bold text-red-600">
-            {formatCurrency(stats.totalDeductions)}
-          </div>
-        </CardContent>
-      </Card>
+      <div className="grid gap-5 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4">
+        {cardConfig.map((config) => (
+          <CCard
+            key={config.key}
+            title={config.label}
+            amount={accountEntries[config.key as keyof typeof accountEntries]}
+            Icon={config.Icon}
+          />
+        ))}
+      </div>
     </div>
   );
 };
-

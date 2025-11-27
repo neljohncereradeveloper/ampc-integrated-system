@@ -16,7 +16,6 @@ import { PayrollBranchEntriesDto } from "@/features/hris/types/payroll.types";
 import { PAYROLL_PERIOD } from "@/lib/constants";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { CCustomCard } from "@/components/shared/card";
 import CSummaryView from "./summary-view";
 import { Spinner } from "@/components/ui/spinner";
 
@@ -113,7 +112,11 @@ const CForm = () => {
           </div>
         ) : (
           <div className="w-full">
-            <CSummaryView data={generateBranchEntriesData || { data: [] }} />
+            <CSummaryView
+              data={generateBranchEntriesData?.data}
+              accountEntries={generateBranchEntriesData?.accountEntries}
+              grandTotal={generateBranchEntriesData?.grandTotal}
+            />
           </div>
         )}
       </>
