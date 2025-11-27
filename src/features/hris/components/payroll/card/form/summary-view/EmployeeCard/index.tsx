@@ -83,13 +83,13 @@ export const EmployeeCard: React.FC<EmployeeCardProps> = ({ employee }) => {
       </div>
 
       {/* Employee Breakdown */}
-      <EmployeeBreakdownCards
+      {/* <EmployeeBreakdownCards
         totalOvertimePay={employee.totalOvertimePay || "0"}
         totalHolidayPay={employee.totalHolidayPay || "0"}
         totalAttendanceExceptions={employee.totalAttendanceExceptions || "0"}
         totalAdditions={employee.totalAdditions || "0"}
         totalDeductions={employee.totalDeductions || "0"}
-      />
+      /> */}
 
       {/* Detailed Entries */}
       <div className="mt-3 space-y-3">
@@ -102,4 +102,3 @@ export const EmployeeCard: React.FC<EmployeeCardProps> = ({ employee }) => {
     </div>
   );
 };
-
