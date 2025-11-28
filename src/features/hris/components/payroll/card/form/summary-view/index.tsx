@@ -61,11 +61,11 @@ const CSummaryView: React.FC<PayrollBranchEntries> = ({
 
   return (
     <div className="space-y-6">
-      <PayrollSummaryHeader
+      {/* <PayrollSummaryHeader
         payPeriod={payPeriod}
         payrollYear={payrollYear}
         totalEmployees={0}
-      />
+      /> */}
 
       <SummaryStatsCards accountEntries={accountEntries!} />
 
